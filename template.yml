@@ -21,6 +21,15 @@ Resources:
     Metadata:
       BuildMethod: python3.8
 
+  ServerlessRestApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors:
+        AllowMethods: "'*'"
+        AllowHeaders: "'*'"
+        AllowOrigin: "'*'"
+
   AppFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -29,10 +38,17 @@ Resources:
         Root:
           Type: Api
           Properties:
+            RestApiId: !Ref ServerlessRestApi
             Path: /
             Method: ANY
         NonRoot:
           Type: Api
           Properties:
+            RestApiId: !Ref ServerlessRestApi
             Path: /{proxy+}
             Method: ANY
+
+Outputs:
+  ApiURL:
+    Description: "API endpoint URL"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
