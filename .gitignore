@@ -3,3 +3,6 @@ node_modules/
 **/.idea/
 **/__pycache__/
 **/.serverless/
+
+.aws-sam
+samconfig.toml
