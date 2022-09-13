@@ -1,0 +1,104 @@
+{
+	"id": "sam-fastapi",
+	"name": "sam-fastapi",
+	"type": "altostra",
+	"description": "Altostra with FastAPI",
+	"created": "2022-09-13T14:59:17.285Z",
+	"blueprints": [
+		{
+			"connections": {
+				"ApiEndpoint02": {
+					"HandleResources01": {
+						"from": "ApiEndpoint02",
+						"to": "HandleResources01",
+						"type": "connection.trigger"
+					}
+				},
+				"ApiEndpoint03": {
+					"HandleResources01": {
+						"from": "ApiEndpoint03",
+						"to": "HandleResources01",
+						"type": "connection.trigger"
+					}
+				},
+				"Data01": {}
+			},
+			"id": "sam-fastapi",
+			"metadata": {
+				"designer": {
+					"resourcePositions": {
+						"Api01": {
+							"x": 41,
+							"y": 229,
+							"z": 0
+						},
+						"HandleResources01": {
+							"x": 403.5116271972656,
+							"y": 262.07514572143555,
+							"z": 0
+						}
+					}
+				}
+			},
+			"name": "sam-fastapi",
+			"resources": {
+				"Api01": {
+					"cors": {
+						"type": "api.cors.none"
+					},
+					"endpoints": [
+						{
+							"id": "ApiEndpoint02",
+							"type": "ref"
+						},
+						{
+							"id": "ApiEndpoint03",
+							"type": "ref"
+						}
+					],
+					"id": "Api01",
+					"name": "ServerlessRestApi",
+					"type": "resource.api"
+				},
+				"ApiEndpoint02": {
+					"api": {
+						"id": "Api01",
+						"type": "ref"
+					},
+					"id": "ApiEndpoint02",
+					"method": "ANY",
+					"name": "api-endpoint-0",
+					"path": "/",
+					"type": "resource.api.endpoint"
+				},
+				"ApiEndpoint03": {
+					"api": {
+						"id": "Api01",
+						"type": "ref"
+					},
+					"id": "ApiEndpoint03",
+					"method": "ANY",
+					"name": "api-endpoint-0",
+					"path": "/{proxy+}",
+					"type": "resource.api.endpoint"
+				},
+				"HandleResources01": {
+					"entryPoint": "app/main.handler",
+					"id": "HandleResources01",
+					"layers": [],
+					"memory": 512,
+					"name": "AppFunction",
+					"runtime": "python3.8",
+					"timeout": 30,
+					"type": "resource.compute.function",
+					"packageType": "zip",
+					"environment": {
+						"variables": {}
+					}
+				}
+			},
+			"unsafe": false,
+			"version": "2019-10-24"
+		}
+	]
+}

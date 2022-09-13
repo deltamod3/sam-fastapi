@@ -1,0 +1,86 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Transform": "AWS::Serverless-2016-10-31",
+	"Resources": {
+		"Api01Deploymentub00vzp": {
+			"Type": "AWS::ApiGateway::Deployment",
+			"Properties": {
+				"RestApiId": {
+					"Ref": "Api01"
+				},
+				"StageName": "Stage"
+			}
+		},
+		"Api01": {
+			"Type": "AWS::Serverless::Api",
+			"Properties": {
+				"StageName": "Prod",
+				"Tags": {
+					"id": "Api01-",
+					"name": "ServerlessRestApi-"
+				}
+			}
+		},
+		"HandleResources01": {
+			"Type": "AWS::Serverless::Function",
+			"Properties": {
+				"Handler": "app/main.handler",
+				"Runtime": "python3.8",
+				"CodeUri": "./",
+				"MemorySize": 512,
+				"Timeout": 30,
+				"Environment": {
+					"Variables": {
+						"ALTO_FUNCTION_ID": "HandleResources01",
+						"ALTO_FUNCTION_NAME": "AppFunction",
+						"ALTO_DEPLOYMENT_TIME": "2022-09-13T16:51:35.344Z"
+					}
+				},
+				"Layers": [],
+				"Tags": {
+					"id": "HandleResources01-",
+					"name": "AppFunction-"
+				},
+				"Events": {
+					"ApiEndpoint02": {
+						"Type": "Api",
+						"Properties": {
+							"Path": "/",
+							"RestApiId": {
+								"Ref": "Api01"
+							},
+							"Method": "any"
+						}
+					},
+					"ApiEndpoint03": {
+						"Type": "Api",
+						"Properties": {
+							"Path": "/{proxy+}",
+							"RestApiId": {
+								"Ref": "Api01"
+							},
+							"Method": "any"
+						}
+					}
+				}
+			}
+		}
+	},
+	"Outputs": {
+		"Domain15Api01StageProd": {
+			"Value": {
+				"Fn::Sub": [
+					"https://${apiId}.execute-api.${AWS::Region}.amazonaws.com/Prod",
+					{
+						"apiId": {
+							"Ref": "Api01"
+						}
+					}
+				]
+			}
+		}
+	},
+	"Metadata": {
+		"tagsEncoding": "alto-tags"
+	}
+}
