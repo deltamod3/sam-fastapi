@@ -1,0 +1,9 @@
+{
+  "id": "sam-fastapi-ld107b2",
+  "name": "sam-fastapi",
+  "created": "2022-09-23T08:19:26.017Z",
+  "description": "Managed cloudformation project.",
+  "blueprints": [],
+  "type": "cloudformation",
+  "managedTemplate": "template.yml"
+}
