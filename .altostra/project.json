@@ -1,0 +1,9 @@
+{
+  "id": "sam-fastapi-ib30qfs",
+  "name": "sam-fastapi",
+  "created": "2022-09-23T08:28:43.187Z",
+  "description": "Managed cloudformation project.",
+  "blueprints": [],
+  "type": "cloudformation",
+  "managedTemplate": "template.yml"
+}
